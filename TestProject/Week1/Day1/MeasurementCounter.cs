@@ -1,40 +1,53 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TestProject.Week1.Day1
 {
     public class MeasurementCounter
     {
-        private readonly int[] _inputArray;
+        private readonly int[]? _inputArray;
+        private const int ThreeUnitStep = 3;
         
-        public MeasurementCounter(int[] inputArray)
+        public MeasurementCounter(int[]? inputArray)
         {
             _inputArray = inputArray;
         }
 
-        public MeasurementCounter()
+        public MeasurementCounter():this(null)
         {
         }
 
-        public static bool IsChangeIncrease(int firstValue, int secondValue)
+        public static bool IsChangeIncrease(int firstValue, int secondValue) 
+            => firstValue < secondValue;
+        
+        public int MaxStartIndexForThreeSum() 
+            => (_inputArray != null) ? _inputArray.Length - 2 : 0;
+
+        public int NoOfIncreases() 
+            => TotalHelper.NumberOfIncreases(_inputArray!);
+
+        public int NumberOfThreeSumIncreases()
         {
-            return firstValue < secondValue;
+            var threeSumsArray = ThreeMeasuredSumArray();
+            return TotalHelper.NumberOfIncreases(threeSumsArray!);
         }
 
-        public int NoOfIncreases()
+
+        public int SumOfThreeIndexes(int startIndex = 0) 
+            => TotalHelper.SumOfUnitSteps(startIndex, _inputArray!, ThreeUnitStep);
+
+
+        public int[] ThreeMeasuredSumArray()
         {
+            var maxStartIndex = MaxStartIndexForThreeSum();
+            return GetSumOfThreeUnits(maxStartIndex);
+            
+        }
 
-            var increaseCounter = 0;
-
-            for (int previous = 0, next = 1 ; next < _inputArray.Length; previous++, next++)
-            {
-                if (IsChangeIncrease(_inputArray[previous], _inputArray[next]))
-                {
-                    increaseCounter++;
-                }
-            }
-
-            return increaseCounter;
-
+        private int[] GetSumOfThreeUnits(int maxStartIndex)
+        {
+            return Enumerable.Range(0, maxStartIndex)
+                .Select(SumOfThreeIndexes).ToArray();
         }
     }
 }

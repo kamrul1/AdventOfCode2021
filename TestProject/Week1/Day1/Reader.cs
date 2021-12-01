@@ -7,7 +7,7 @@ namespace TestProject.Week1.Day1
 {
     public static class Reader
     {
-        public static async Task<int[]> LoadAsync(string fileName)
+        public static async Task<int[]?> LoadAsync(string fileName)
         {
             var file = GetFile(fileName);
 
