@@ -24,6 +24,9 @@
       <None Update="Week1\Day1\MeasurementFile.txt">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Week1\Day2\SubmarineMovementFile.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
